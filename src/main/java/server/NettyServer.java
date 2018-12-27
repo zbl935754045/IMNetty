@@ -1,3 +1,5 @@
+package server;
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -33,7 +35,8 @@ public class NettyServer {
                 //childHandler()用于指定处理新连接数据的读写处理逻辑
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     protected void initChannel(NioSocketChannel ch) {
-                        System.out.println(ch.attr(clientKey).get());
+                        //System.out.println(ch.attr(clientKey).get());
+                        ch.pipeline().addLast(new FirstServerHandler());
                     }
                 });
 
