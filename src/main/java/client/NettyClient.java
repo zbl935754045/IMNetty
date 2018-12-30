@@ -28,7 +28,7 @@ public class NettyClient {
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     public void initChannel(SocketChannel ch){
-                        ch.pipeline().addLast();
+                        ch.pipeline().addLast(new FirstClientHandler());
                     }
                 });
         connect(bootstrap,HOST,PORT,MAX_RETRY);
@@ -45,7 +45,6 @@ public class NettyClient {
                int delay = 1<<order;
                System.err.println(new Date()+"连接失败，第"+order+"次连接...");
                bootstrap.config().group().schedule(()->connect(bootstrap,host,port,retry-1),delay,TimeUnit.SECONDS);
-
            }
         });
     }
