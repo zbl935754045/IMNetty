@@ -1,5 +1,6 @@
-package protocol.command;
+package protocol;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
 //定义数据包
@@ -8,6 +9,7 @@ public abstract class Packet {
     /**
      * 协议版本
      */
+    @JSONField(deserialize = false,serialize = false)
     private Byte version = 1;
 
 
@@ -15,6 +17,7 @@ public abstract class Packet {
      * 指令
      * @return
      */
+    @JSONField(serialize = false)
     public abstract Byte getCommand();
 
 }
