@@ -68,17 +68,14 @@ public class PacketCodeC {
         if (requestType != null && serializer != null) {
             return serializer.deserialize(requestType, bytes);
         }
-
         return null;
     }
 
     private Serializer getSerializer(byte serializeAlgorithm) {
-
         return serializerMap.get(serializeAlgorithm);
     }
 
     private Class<? extends Packet> getRequestType(byte command) {
-
         return packetTypeMap.get(command);
     }
 }

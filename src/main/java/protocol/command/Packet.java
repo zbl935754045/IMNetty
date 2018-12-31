@@ -2,6 +2,7 @@ package protocol.command;
 
 import lombok.Data;
 
+//定义数据包
 @Data
 public abstract class Packet {
     /**
