@@ -1,5 +1,7 @@
 package server;
 
+import codec.PacketDecoder;
+import codec.PacketEncoder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -7,6 +9,8 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.AttributeKey;
+import server.handler.LoginRequestHandler;
+import server.handler.MessageRequestHandler;
 
 public class NettyServer {
     private static final int BEGIN_PORT = 8000;
@@ -35,8 +39,10 @@ public class NettyServer {
                 //childHandler()用于指定处理新连接数据的读写处理逻辑
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     protected void initChannel(NioSocketChannel ch) {
-                        //System.out.println(ch.attr(clientKey).get());
-                        ch.pipeline().addLast(new ServerHandler());
+                        ch.pipeline().addLast(new PacketDecoder());
+                        ch.pipeline().addLast(new LoginRequestHandler());
+                        ch.pipeline().addLast(new MessageRequestHandler());
+                        ch.pipeline().addLast(new PacketEncoder());
                     }
                 });
 

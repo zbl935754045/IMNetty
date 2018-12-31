@@ -8,6 +8,8 @@ import static protocol.command.Command.MESSAGE_REQUEST;
 @Data
 public class MessageResponsePacket extends Packet {
     private String message;
+
+
     @Override
     public Byte getCommand() {
         return MESSAGE_REQUEST;
