@@ -2,6 +2,7 @@ package server;
 
 import codec.PacketDecoder;
 import codec.PacketEncoder;
+import codec.Spliter;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -39,6 +40,7 @@ public class NettyServer {
                 //childHandler()用于指定处理新连接数据的读写处理逻辑
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     protected void initChannel(NioSocketChannel ch) {
+                        ch.pipeline().addLast(new Spliter());
                         ch.pipeline().addLast(new PacketDecoder());
                         ch.pipeline().addLast(new LoginRequestHandler());
                         ch.pipeline().addLast(new MessageRequestHandler());
