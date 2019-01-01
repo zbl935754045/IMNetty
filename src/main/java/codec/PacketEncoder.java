@@ -8,7 +8,7 @@ import protocol.PacketCodeC;
 
 public class PacketEncoder extends MessageToByteEncoder<Packet> {
     @Override
-    protected void encode(ChannelHandlerContext ctx, Packet packet, ByteBuf out) throws Exception {
+    protected void encode(ChannelHandlerContext ctx, Packet packet, ByteBuf out) {
         PacketCodeC.INSTANCE.encode(out, packet);
     }
 }

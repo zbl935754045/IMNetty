@@ -9,9 +9,7 @@ import static protocol.command.Command.LOGIN_REQUEST;//引入Command接口的变
 @Data
 public class LoginRequestPacket extends Packet {
 
-    private String userId;
-
-    private String username;
+    private String userName;
 
     private String password;
 
