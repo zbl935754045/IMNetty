@@ -8,7 +8,6 @@ public interface Serializer {
     /**
      * json 序列化
      */
-    byte JSON_SERIALIZER = 1;
     Serializer DEFAULT = new JSONSerializer();
 
     /**

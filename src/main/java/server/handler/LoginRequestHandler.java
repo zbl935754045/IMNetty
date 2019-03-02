@@ -36,6 +36,7 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
     private boolean valid(LoginRequestPacket loginRequestPacket) {
         return true;
     }
+
     private static String randomUserId() {
         return UUID.randomUUID().toString().split("-")[0];
     }

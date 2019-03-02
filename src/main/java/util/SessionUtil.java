@@ -10,7 +10,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class SessionUtil {
     private static final Map<String, Channel> userIdChannelMap = new ConcurrentHashMap<>();
 
-
     public static void bindSession(Session session, Channel channel) {
         userIdChannelMap.put(session.getUserId(), channel);
         channel.attr(Attributes.SESSION).set(session);
@@ -22,6 +21,7 @@ public class SessionUtil {
             channel.attr(Attributes.SESSION).set(null);
         }
     }
+
     public static boolean hasLogin(Channel channel) {
 
         return channel.hasAttr(Attributes.SESSION);

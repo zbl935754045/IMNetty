@@ -9,7 +9,7 @@ import util.SessionUtil;
 public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginResponsePacket> {
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, LoginResponsePacket loginResponsePacket) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, LoginResponsePacket loginResponsePacket){
         String userId = loginResponsePacket.getUserId();
         String userName = loginResponsePacket.getUserName();
         if (loginResponsePacket.isSuccess()) {

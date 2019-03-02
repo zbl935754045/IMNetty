@@ -8,7 +8,7 @@ import protocol.response.MessageResponsePacket;
 public class MessageResponseHandler extends SimpleChannelInboundHandler<MessageResponsePacket> {
 
     @Override
-    protected void channelRead0(ChannelHandlerContext channelHandlerContext, MessageResponsePacket messageResponsePacket) throws Exception {
+    protected void channelRead0(ChannelHandlerContext channelHandlerContext, MessageResponsePacket messageResponsePacket){
         String fromUserId = messageResponsePacket.getFromUserId();
         String fromUserName = messageResponsePacket.getFromUserName();
         System.out.println(fromUserId + ":" + fromUserName + " -> " + messageResponsePacket.getMessage());

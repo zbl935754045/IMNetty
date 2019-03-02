@@ -2,7 +2,7 @@ package protocol.response;
 
 import lombok.Data;
 import protocol.Packet;
-import static protocol.command.Command.MESSAGE_REQUEST;
+import static protocol.command.Command.MESSAGE_RESPONSE;
 
 
 @Data
@@ -16,6 +16,6 @@ public class MessageResponsePacket extends Packet {
 
     @Override
     public Byte getCommand() {
-        return MESSAGE_REQUEST;
+        return MESSAGE_RESPONSE;
     }
 }
