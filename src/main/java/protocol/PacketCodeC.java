@@ -2,9 +2,13 @@ package protocol;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
+import protocol.request.CreateGroupRequestPacket;
 import protocol.request.LoginRequestPacket;
+import protocol.request.LogoutRequestPacket;
 import protocol.request.MessageRequestPacket;
+import protocol.response.CreateGroupResponsePacket;
 import protocol.response.LoginResponsePacket;
+import protocol.response.LogoutResponsePacket;
 import protocol.response.MessageResponsePacket;
 import serialize.Serializer;
 import serialize.impl.JSONSerializer;
@@ -29,12 +33,15 @@ public class PacketCodeC {
         packetTypeMap.put(LOGIN_RESPONSE, LoginResponsePacket.class);
         packetTypeMap.put(MESSAGE_REQUEST, MessageRequestPacket.class);
         packetTypeMap.put(MESSAGE_RESPONSE, MessageResponsePacket.class);
+        packetTypeMap.put(LOGOUT_REQUEST, LogoutRequestPacket.class);
+        packetTypeMap.put(LOGOUT_RESPONSE, LogoutResponsePacket.class);
+        packetTypeMap.put(CREATE_GROUP_REQUEST, CreateGroupRequestPacket.class);
+        packetTypeMap.put(CREATE_GROUP_RESPONSE, CreateGroupResponsePacket.class);
 
         serializerMap = new HashMap<>();
         Serializer serializer = new JSONSerializer();
-        serializerMap.put(serializer.getSerializerAlogrithm(), serializer);
+        serializerMap.put(serializer.getSerializerAlgorithm(), serializer);
     }
-
 
     public void encode(ByteBuf byteBuf, Packet packet) {
         // 1. 序列化 java 对象
@@ -43,7 +50,7 @@ public class PacketCodeC {
         // 2. 实际编码过程
         byteBuf.writeInt(MAGIC_NUMBER);
         byteBuf.writeByte(packet.getVersion());
-        byteBuf.writeByte(Serializer.DEFAULT.getSerializerAlogrithm());
+        byteBuf.writeByte(Serializer.DEFAULT.getSerializerAlgorithm());
         byteBuf.writeByte(packet.getCommand());
         byteBuf.writeInt(bytes.length);
         byteBuf.writeBytes(bytes);

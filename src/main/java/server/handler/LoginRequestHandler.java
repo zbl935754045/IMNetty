@@ -5,21 +5,23 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import protocol.request.LoginRequestPacket;
 import protocol.response.LoginResponsePacket;
 import session.Session;
+import util.IDUtil;
 import util.SessionUtil;
 
 import java.util.Date;
 import java.util.UUID;
 
 public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginRequestPacket> {
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, LoginRequestPacket loginRequestPacket) {
-
         LoginResponsePacket loginResponsePacket = new LoginResponsePacket();
         loginResponsePacket.setVersion(loginRequestPacket.getVersion());
         loginResponsePacket.setUserName(loginRequestPacket.getUserName());
+
         if (valid(loginRequestPacket)) {
             loginResponsePacket.setSuccess(true);
-            String userId = randomUserId();
+            String userId = IDUtil.randomId();
             loginResponsePacket.setUserId(userId);
             System.out.println("[" + loginRequestPacket.getUserName() + "]登录成功");
             SessionUtil.bindSession(new Session(userId, loginRequestPacket.getUserName()), ctx.channel());
@@ -37,15 +39,9 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
         return true;
     }
 
-    private static String randomUserId() {
-        return UUID.randomUUID().toString().split("-")[0];
-    }
-
-
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
         SessionUtil.unBindSession(ctx.channel());
     }
-
 
 }
